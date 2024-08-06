@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Wikipedia Redirect</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const wikipediaPages = [
+        "https://en.wikipedia.org/wiki/Special:Random",
+        "https://en.wikipedia.org/wiki/Albert_Einstein",
+        "https://en.wikipedia.org/wiki/JavaScript",
+        // Add more Wikipedia URLs here
+      ];
+
+      const visitedPages = JSON.parse(localStorage.getItem('visitedPages')) || [];
+      const availablePages = wikipediaPages.filter(page => !visitedPages.includes(page));
+
+      if (availablePages.length === 0) {
+        localStorage.clear();
+        window.location.replace(wikipediaPages[Math.floor(Math.random() * wikipediaPages.length)]);
+      } else {
+        const randomPage = availablePages[Math.floor(Math.random() * availablePages.length)];
+        visitedPages.push(randomPage);
+        localStorage.setItem('visitedPages', JSON.stringify(visitedPages));
+        window.location.replace(randomPage);
+      }
+    });
+  </script>
+</head>
+<body>
+  Redirecting to a random Wikipedia page...
+</body>
+</html>
+
